@@ -8,7 +8,7 @@ A [cooklang](https://cooklang.org/) parser for Dart.
 
 ## Getting started
 
-TODO
+Check the package page on [pub.dev/packages/cooklang](https://pub.dev/packages/cooklang).
 
 ## Usage
 
@@ -36,4 +36,3 @@ Put in an #oven for ~{4%minutes}.""";
 ```
 
 ## Additional information
-

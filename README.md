@@ -12,10 +12,10 @@ TODO
 
 ## Usage
 
-Check `example/cooklang_dart_example.dart`:
+Check `example/cooklang_example.dart`:
 
 ```dart
-import 'package:cooklang_dart/cooklang_dart.dart';
+import 'package:cooklang/cooklang.dart';
 
 void main() {
   final content = """

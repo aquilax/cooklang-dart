@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cooklang_dart/cooklang_dart.dart';
+import 'package:cooklang/cooklang.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 

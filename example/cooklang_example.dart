@@ -1,4 +1,4 @@
-import 'package:cooklang_dart/cooklang_dart.dart';
+import 'package:cooklang/cooklang.dart';
 
 void main() {
   final content = """

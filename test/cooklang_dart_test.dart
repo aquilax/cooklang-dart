@@ -2,15 +2,19 @@ import 'package:cooklang_dart/cooklang_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
+  group('parseFromString', () {
+    test('parses metadata', () {
+      const content = """>> this: is a test""";
+      expect(parseFromString(content).metadata, equals({"this": "is a test"}));
     });
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+    test('parses multiple metadata lines', () {
+      const content = """
+>> this: is a test
+>> here: is another one
+""";
+      expect(parseFromString(content).metadata,
+          equals({"this": "is a test", "here": "is another one"}));
     });
   });
 }

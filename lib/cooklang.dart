@@ -1,6 +1,6 @@
 /// Cooklang parser.
 ///
-/// More dartdocs go here.
+/// Cooklang – Recipe Markup Language
 library cooklang;
 
 export 'src/cooklang_base.dart';

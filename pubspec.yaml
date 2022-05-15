@@ -1,5 +1,5 @@
 name: cooklang
-description: A cooklang parser in Dart
+description: A cooklang parser in Dart compliant with the language canonical tests.
 version: 1.0.0
 homepage: https://github.com/aquilax/cooklang-dart
 

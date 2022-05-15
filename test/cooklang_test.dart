@@ -60,18 +60,6 @@ void main() {
     });
   });
 
-  group('getIngredient', () {
-    test('returns ingredient and offset', () {
-      const ingredient = '@kasawa{100%g}';
-      final ingredientWithOffset = getIngredient(ingredient);
-      final expected = StepIngredient('kasawa', 100, "g");
-      final given = ingredientWithOffset.item1;
-      expect(given.name, equals(expected.name));
-      expect(given.quantity, equals(expected.quantity));
-      expect(given.units, equals(expected.units));
-    });
-  });
-
   group('canonical tests', () {
     var contents = File('./test/canonical.yaml').readAsStringSync();
     var doc = loadYaml(contents);

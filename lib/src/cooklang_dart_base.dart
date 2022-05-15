@@ -87,11 +87,17 @@ class StepTimer implements StepItem {
   }
 }
 
-class ParseResult {
-  ParseResult(this.steps, this.metadata);
+class Recipe {
+  Recipe(this.steps, this.metadata);
 
   late Metadata metadata;
   late List<Step> steps;
+  Object toObject() {
+    return {
+      'metadata': metadata,
+      'steps': steps.map((e) => e.map((e) => e.toObject()).toList())
+    };
+  }
 }
 
 Metadata parseMetadataLine(String line) {
@@ -104,7 +110,7 @@ Metadata parseMetadataLine(String line) {
   return {key: value};
 }
 
-ParseResult parseFromString(String content) {
+Recipe parseFromString(String content) {
   var metadata = <String, String>{};
   var steps = <Step>[];
 
@@ -133,7 +139,7 @@ ParseResult parseFromString(String content) {
       steps.add(step);
     }
   }
-  return ParseResult(steps, metadata);
+  return Recipe(steps, metadata);
 }
 
 Step parseLine(String line) {

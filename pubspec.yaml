@@ -1,13 +1,10 @@
 name: cooklang_dart
-description: A starting point for Dart libraries or applications.
+description: A cooklang parser in Dart
 version: 1.0.0
-# homepage: https://www.example.com
+homepage: https://github.com/aquilax/cooklang-dart
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
-
-# dependencies:
-#   path: ^1.8.0
 
 dev_dependencies:
   lints: ^2.0.0

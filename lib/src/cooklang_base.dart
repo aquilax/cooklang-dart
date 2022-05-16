@@ -16,25 +16,31 @@ const _terminatingPrefixes = [
   _prefixBlockComment
 ];
 
-// Meta data dictionary
+/// Recipe metadata dictionary
 typedef Metadata = Map<String, String>;
-// List recipe steps
+
+/// Recipe list of step items
 typedef Step = List<StepItem>;
+
 typedef _Node = Tuple3<String, dynamic, String>;
 typedef _Amount = Tuple2<dynamic, String>;
 typedef _IngredientWithOffset = Tuple2<StepIngredient, int>;
 typedef _CookwareWithOffset = Tuple2<StepCookware, int>;
 typedef _TimerWithOffset = Tuple2<StepTimer, int>;
 
+/// Abstract StepItem class
 abstract class StepItem {
+  /// Map representation of the object
   Object toObject();
 }
 
-// A text step
+/// Step item containing unstructured text
 class StepText implements StepItem {
   StepText(this.value);
 
   String type = 'text';
+
+  /// Text value
   late String value;
 
   @override
@@ -43,13 +49,19 @@ class StepText implements StepItem {
   }
 }
 
-// An ingredient step
+/// Step item containing ingredient definition
 class StepIngredient implements StepItem {
   StepIngredient(this.name, this.quantity, this.units);
 
   String type = 'ingredient';
+
+  /// Name of the ingredient
   late String name;
+
+  /// Quantity can be string/int/double
   late dynamic quantity;
+
+  /// Optional quantity unit (defaults to empty string)
   late String units;
 
   @override
@@ -58,14 +70,17 @@ class StepIngredient implements StepItem {
   }
 }
 
-// An cookware step
+/// Step item containing cookware definition
 class StepCookware implements StepItem {
-  StepCookware(this.name, this.quantity, this.quantityRaw);
+  StepCookware(this.name, this.quantity);
 
   String type = 'cookware';
+
+  /// Name of the cookware
   late String name;
+
+  /// Quantity can be string/int/double
   late dynamic quantity;
-  late String quantityRaw;
 
   @override
   Object toObject() {
@@ -73,12 +88,16 @@ class StepCookware implements StepItem {
   }
 }
 
-// An timer step
+/// Step item containing timer definition
 class StepTimer implements StepItem {
   StepTimer(this.name, this.quantity, this.units);
 
   String type = 'timer';
+
+  /// Name of the timer
   late String name;
+
+  /// Quantity can be string/int/double
   late dynamic quantity;
 
   late String units;
@@ -89,12 +108,13 @@ class StepTimer implements StepItem {
   }
 }
 
-/// Parsed recipe.
+/// Parse result containing the parsed recipe
 class Recipe {
   Recipe(this.steps, this.metadata);
 
   late Metadata metadata;
   late List<Step> steps;
+
   Object toObject() {
     return {
       'metadata': metadata,
@@ -103,17 +123,7 @@ class Recipe {
   }
 }
 
-Metadata _parseMetadataLine(String line) {
-  var index = line.indexOf(_metadataValueSeparator);
-  if (index == -1) {
-    throw "invalid metadata, missing value separator";
-  }
-  var key = line.substring(0, index).trim();
-  var value = line.substring(index + _metadataValueSeparator.length).trim();
-  return {key: value};
-}
-
-// Parses a cooklang marked up recipe
+/// Parses a cooklang marked up recipe and returns a Recipe object
 Recipe parseFromString(String content) {
   var metadata = <String, String>{};
   var steps = <Step>[];
@@ -144,6 +154,16 @@ Recipe parseFromString(String content) {
     }
   }
   return Recipe(steps, metadata);
+}
+
+Metadata _parseMetadataLine(String line) {
+  var index = line.indexOf(_metadataValueSeparator);
+  if (index == -1) {
+    throw "invalid metadata, missing value separator";
+  }
+  var key = line.substring(0, index).trim();
+  var value = line.substring(index + _metadataValueSeparator.length).trim();
+  return {key: value};
 }
 
 Step _parseLine(String line) {
@@ -221,8 +241,7 @@ _CookwareWithOffset _getCookware(String line) {
   final endIndex = _getEndIndex(line);
   final rawContent = line.substring(1, endIndex);
   final node = _getNode(rawContent, 1);
-  return _CookwareWithOffset(
-      StepCookware(node.item1, node.item2, node.item3), endIndex);
+  return _CookwareWithOffset(StepCookware(node.item1, node.item2), endIndex);
 }
 
 _TimerWithOffset _getTimer(String line) {
